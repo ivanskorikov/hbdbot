@@ -92,17 +92,18 @@ def logger(msg, log):
 def main():
     argparser = argparse.ArgumentParser()
     argparser.add_argument('-C', '--config', type=str, nargs='?', default='./config.json', help='Path to json config file')
+    argparser.add_argument('-L', '--local', action='store_true', help='Path to json config file')
     args = argparser.parse_args()
 
     cfg = Config(config_file=args.config)
     bot = telebot.TeleBot(cfg.api_token)
-    fetched_remote = False
+    fetched_remote = False    
     
-    today = get_current_date()
+    today = '01.10' #get_current_date()
     logger(f'==========8<==========', cfg.log_file)
     logger(f'Init complete. Using {cfg.config_file}. Got date: {today}', cfg.log_file)
     birthdays = read_birthdays_from_sheet(cfg.sheet_url)
-    if birthdays:
+    if birthdays and not args.local:
         logger(f'Fetched remote data from {cfg.sheet_url}', cfg.log_file)
         congratz = check_today(today, birthdays)
         fetched_remote = True
@@ -121,7 +122,7 @@ def main():
         update_cache(cfg.cache_file, birthdays)
         logger(f'Local cache updated at {cfg.cache_file}', cfg.log_file)
     
-    report(f'Success!\nToday: {today}.\nUpdated cache: {str(fetched_remote)}', bot, cfg.report_name)
+    report(f'Success!\nToday: {today}.\nLocal mode: {args.local}.\nUpdated cache: {str(fetched_remote)}', bot, cfg.report_name)
     
 if __name__ == '__main__':
     main()
