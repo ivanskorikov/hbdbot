@@ -36,7 +36,7 @@ def normalize_line(line):
     return line
 
 def get_current_date():
-    return datetime.today().strftime('%m.%d')
+    return datetime.today().strftime('%d.%m')
 
 def report(msg, bot, dest):
     bot.send_message(dest, msg)
