@@ -99,7 +99,7 @@ def main():
     bot = telebot.TeleBot(cfg.api_token)
     fetched_remote = False    
     
-    today = '01.10' #get_current_date()
+    today = get_current_date()
     logger(f'==========8<==========', cfg.log_file)
     logger(f'Init complete. Using {cfg.config_file}. Got date: {today}', cfg.log_file)
     birthdays = read_birthdays_from_sheet(cfg.sheet_url)
