@@ -69,7 +69,7 @@ def generate_message(persons):
         verb = 'отмечают'
     for p in persons:
         names = names + ' '.join(p) + ', '
-    names = names.rstrip(', ')
+    names = names.rstrip(', ').replace('_','\_')
     message = f'🎉🎉🎉🎉🎉🎉🎉🎉\nВсем привет\!\nСегодня день рождения {verb} *{names}*\! Поздравляем\!\n🎂🎂🎂🎂🎂🎂🎂🎂'
     return message
 
